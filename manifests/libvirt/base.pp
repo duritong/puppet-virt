@@ -6,13 +6,13 @@ class virt::libvirt::base {
 
   file{'/etc/libvirt/libvirtd.conf':
     source => [
-      "puppet:///modules/site_virt/${fqdn}/libvirtd.conf",
-      "puppet:///modules/site_virt/${domain}/libvirtd.conf",
-      "puppet:///modules/virt/${operatingsystem}/${lsbmajdistrelease}/libvirtd.conf",
-      "puppet:///modules/virt/${operatingsystem}/libvirtd.conf",
-      "puppet:///modules/site_virt/libvirtd.conf",
-      "puppet:///modules/virt/${operatingsystem}/${lsbmajdistrelease}/libvirtd.conf",
-      "puppet:///modules/virt/${operatingsystem}/libvirtd.conf"
+      "puppet:///modules/site_virt/libvirt/configs/${fqdn}/libvirtd.conf",
+      "puppet:///modules/site_virt/libvirt/configs/${domain}/libvirtd.conf",
+      "puppet:///modules/site_virt/libvirt/configs/${operatingsystem}/${lsbmajdistrelease}/libvirtd.conf",
+      "puppet:///modules/site_virt/libvirt/configs/${operatingsystem}/libvirtd.conf",
+      "puppet:///modules/site_virt/libvirt/configs/libvirtd.conf",
+      "puppet:///modules/virt/libvirt/configs/${operatingsystem}/${lsbmajdistrelease}/libvirtd.conf",
+      "puppet:///modules/virt/libvirt/configs/${operatingsystem}/libvirtd.conf"
     ],
     require => Package['libvirt'],
     notify => Service['libvirtd'],
