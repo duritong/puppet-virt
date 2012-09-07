@@ -1,4 +1,5 @@
 class virt::libvirt::base {
+  require rubygems::xmlsimple
   package{ [ 'libvirt', 'python-virtinst', 'ruby-libvirt' ]:
     ensure => installed,
   }

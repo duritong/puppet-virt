@@ -5,6 +5,8 @@ class GuestStarter
   def self.factory
     if Facter[:virtual].value == 'xen0'
       XenGuestStarter.new
+    elsif (Facter[:virtual].value == 'physical') && File.exists?('/etc/libvirt/qemu')
+      KvmGuestStarter.new
     else
       raise "No such virtual type supported so far!"
     end 
@@ -46,8 +48,7 @@ end
 
 class XenGuestStarter < GuestStarter
   def get_guests
-    guests = {}
-    (Dir['/etc/xen/auto/*'] | Dir['/etc/xen/*.sxp']).each do |file|
+    (Dir['/etc/xen/auto/*'] | Dir['/etc/xen/*.sxp']).inject({}) do |guests,file|
       next if File.basename(file) =~ /^xend\-.*.sxp$/
       content = File.read(file).split("\n").select{|l| l =~ /^.*(name|disk).*=.*$/ }.join("\n")
       name = disk = nil
@@ -56,8 +57,8 @@ class XenGuestStarter < GuestStarter
         :file => file,
         :disks => disk.collect{|d| d.split(':',2).last.split(',').first }
       }
+      guests
     end
-    guests
   end
 
   def start_guest_cmd(guest)
@@ -65,4 +66,23 @@ class XenGuestStarter < GuestStarter
   end
 end
 
+class KvmGuestStarter < GuestStarter
+  def get_guests
+    require 'rubygems'
+    require 'xmlsimple'
+    Dir['/etc/libvirt/qemu/*.xml'].inject({}) do |guests,file|
+      config = config = XmlSimple.xml_in(file)
+      guests[config['name'].first] = {
+        :disks => config['devices'].collect{|d1| d1['disk'].select{|d2| d2['type'] == 'block' }.collect{|d2| d2['source'].collect{|d3| d3['dev'] } } }.flatten.compact
+      }
+      guests
+    end
+  end
+
+  def start_guest_cmd(guest)
+    "virsh start #{guest}"
+  end
+end
+
 exit GuestStarter.factory.start_missing_guests
+
