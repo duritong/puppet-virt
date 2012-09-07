@@ -4,6 +4,23 @@ class virt::libvirt::base {
     ensure => installed,
   }
 
+  file{'/etc/libvirt/libvirtd.conf':
+    source => [
+      "puppet:///modules/site_virt/${fqdn}/libvirtd.conf",
+      "puppet:///modules/site_virt/${domain}/libvirtd.conf",
+      "puppet:///modules/virt/${operatingsystem}/${lsbmajdistrelease}/libvirtd.conf",
+      "puppet:///modules/virt/${operatingsystem}/libvirtd.conf",
+      "puppet:///modules/site_virt/libvirtd.conf",
+      "puppet:///modules/virt/${operatingsystem}/${lsbmajdistrelease}/libvirtd.conf",
+      "puppet:///modules/virt/${operatingsystem}/libvirtd.conf"
+    ],
+    require => Package['libvirt'],
+    notify => Service['libvirtd'],
+    owner => root,
+    group => 0,
+    mode => 0644;
+  }
+
   service{'libvirtd':
     ensure => running,
     enable => true,
