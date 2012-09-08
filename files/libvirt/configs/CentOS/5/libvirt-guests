@@ -20,4 +20,10 @@
 #             value suitable for your guests.
 #ON_SHUTDOWN=suspend
 
-# number of seconds we're w
+# Number of seconds we're willing to wait for a guest to shut down. If parallel
+# shutdown is enabled, this timeout applies as a timeout for shutting down all
+# guests on a single URI defined in the variable URIS. If this is 0, then there
+# is no time out (use with caution, as guests might not respond to a shutdown
+# request).
+#SHUTDOWN_TIMEOUT=0
+
