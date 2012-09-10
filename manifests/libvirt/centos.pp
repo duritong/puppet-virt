@@ -3,6 +3,8 @@ class virt::libvirt::centos inherits virt::libvirt::base {
     source => [
       "puppet:///modules/site_virt/libvirt/configs/${fqdn}/libvirt-guests",
       "puppet:///modules/site_virt/libvirt/configs/${domain}/libvirt-guests",
+      "puppet:///modules/site_virt/libvirt/configs/${operatingsystem}/${lsbmajdistrelease}/libvirt-guests",
+      "puppet:///modules/site_virt/libvirt/configs/${operatingsystem}/libvirt-guests",
       "puppet:///modules/site_virt/libvirt/configs/libvirt-guests",
       "puppet:///modules/virt/libvirt/configs/${operatingsystem}/${lsbmajdistrelease}/libvirt-guests",
       "puppet:///modules/virt/libvirt/configs/${operatingsystem}/libvirt-guests"
