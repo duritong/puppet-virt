@@ -3,7 +3,7 @@ class virt::kvm::base {
     ensure => present,
   }
 
-  if $operatingsystem == 'CentOS' && $lsbmajdistrelease == '5' {
+  if $operatingsystem == 'CentOS' and $lsbmajdistrelease == '5' {
     Package['qemu-kvm']{
       name => 'kvm-qemu-img'
     } 
