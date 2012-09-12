@@ -1,11 +1,11 @@
 class virt::kvm::base {
-  package{ [ 'kvm', 'qemu-kvm']:
+  package{'kvm':
     ensure => present,
   }
 
-  if $operatingsystem == 'CentOS' and $lsbmajdistrelease == '5' {
-    Package['qemu-kvm']{
-      name => 'kvm-qemu-img'
+  if $operatingsystem == 'CentOS' and $lsbmajdistrelease > 5 {
+    Package['kvm']{
+      name => 'qemu-kvm'
     } 
   }
 }
