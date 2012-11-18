@@ -49,14 +49,15 @@ end
 class XenGuestStarter < GuestStarter
   def get_guests
     (Dir['/etc/xen/auto/*'] | Dir['/etc/xen/*.sxp']).inject({}) do |guests,file|
-      next if File.basename(file) =~ /^xend\-.*.sxp$/
-      content = File.read(file).split("\n").select{|l| l =~ /^.*(name|disk).*=.*$/ }.join("\n")
-      name = disk = nil
-      eval content
-      guests[name] = {
-        :file => file,
-        :disks => disk.collect{|d| d.split(':',2).last.split(',').first }
-      }
+      unless File.basename(file) =~ /^xend\-.*.sxp$/
+        content = File.read(file).split("\n").select{|l| l =~ /^.*(name|disk).*=.*$/ }.join("\n")
+        name = disk = nil
+        eval content
+        guests[name] = {
+          :file => file,
+          :disks => disk.collect{|d| d.split(':',2).last.split(',').first }
+        }
+      end
       guests
     end
   end
