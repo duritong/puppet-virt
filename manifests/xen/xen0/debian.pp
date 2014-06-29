@@ -24,12 +24,13 @@ class virt::xen::xen0::debian inherits virt::xen::xen0::base {
   }
 
   Service['xend']{
+    name      => 'xen',
     hasstatus => false,
   }
 
   File['xendomains_defaults']{
-        path    => '/etc/default/xendomains',
-        source  => "puppet:///modules/virt/xen/${::operatingsystem}/default/xendomains",
+    path    => '/etc/default/xendomains',
+    source  => "puppet:///modules/virt/xen/${::operatingsystem}/default/xendomains",
   }
 
   file {
