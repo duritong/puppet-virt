@@ -19,18 +19,7 @@ class virt::xen::xen0::base {
 
   service{'xendomains':
     enable    => true,
-    hasstatus => true,
     require   => Package['kernel-xen'],
-  }
-  # only ensure xendomains running if we have more
-  # than one domain running
-  if $::virtual_guests_count and $::virtual_guests_count > 0 {
-    Service['xendomains']{
-      ensure => running,
-    }
-    File['xendomains_defaults']{
-      notify => Service[xendomains]
-    }
   }
 
   file{'/etc/xen/xend-config.sxp':
