@@ -1,13 +1,13 @@
+# manage xen0 on centos
 class virt::xen::xen0::centos inherits virt::xen::xen0::base {
   file{'xend_defaults':
-    path => '/etc/sysconfig/xend',
-    source => "puppet:///modules/virt/xen/${::operatingsystem}/sysconfig/xend",
-    notify => Service['xend'],
-    owner => root, group => 0, mode => 0644;
+    path    => '/etc/sysconfig/xend',
+    source  => "puppet:///modules/virt/xen/${::operatingsystem}/sysconfig/xend",
+    notify  => Service['xend'],
   }
 
   File['xendomains_defaults']{
-    path => '/etc/sysconfig/xendomains',
-    source => "puppet:///modules/virt/xen/${::operatingsystem}/sysconfig/xendomains",
+    path    => '/etc/sysconfig/xendomains',
+    source  => "puppet:///modules/virt/xen/${::operatingsystem}/sysconfig/xendomains",
   }
 }
