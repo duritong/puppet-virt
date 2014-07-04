@@ -20,7 +20,7 @@ class virt::xen::xen0::debian inherits virt::xen::xen0::base {
   }
 
   Package['xen-libs']{
-    name => 'xen-utils-4.0'
+    name => 'xen-utils-4.1'
   }
 
   Service['xend']{
