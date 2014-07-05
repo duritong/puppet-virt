@@ -4,6 +4,9 @@ class virt::xen::xen0::centos inherits virt::xen::xen0::base {
     path    => '/etc/sysconfig/xend',
     source  => "puppet:///modules/virt/xen/${::operatingsystem}/sysconfig/xend",
     notify  => Service['xend'],
+    owner   => root,
+    group   => 0,
+    mode    => '0644';
   }
 
   File['xendomains_defaults']{
