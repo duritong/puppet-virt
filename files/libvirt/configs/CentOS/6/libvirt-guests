@@ -22,6 +22,7 @@
 #             which just needs a long time to shutdown. When setting
 #             ON_SHUTDOWN=shutdown, you must also set SHUTDOWN_TIMEOUT to a
 #             value suitable for your guests.
+#ON_SHUTDOWN=suspend
 ON_SHUTDOWN=shutdown
 
 # If set to non-zero, shutdown will suspend guests concurrently. Number of
