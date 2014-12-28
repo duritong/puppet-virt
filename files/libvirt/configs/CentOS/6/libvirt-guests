@@ -9,6 +9,7 @@
 #           guests marked as autostart will still be automatically started by
 #           libvirtd
 #ON_BOOT=start
+ON_BOOT=ignore
 
 # Number of seconds to wait between each guest start. Set to 0 to allow
 # parallel startup.
@@ -36,6 +37,7 @@ PARALLEL_SHUTDOWN=10
 # is no time out (use with caution, as guests might not respond to a shutdown
 # request). The default value is 300 seconds (5 minutes).
 #SHUTDOWN_TIMEOUT=300
+SHUTDOWN_TIMEOUT=30
 
 # If non-zero, try to bypass the file system cache when saving and
 # restoring guests, even though this may give slower operation for
