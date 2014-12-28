@@ -5,6 +5,15 @@ class virt::libvirt::base {
     ensure => installed,
   }
 
+  if $::operatingsystem == 'CentOS' and $::operatingsystemmajrelease > 6 {
+    Package['ruby-libvirt']{
+      name => 'rubygem-ruby-libvirt'
+    }
+    Package['python-virtinst']{
+      name => 'virt-install'
+    }
+  }
+
   file{'/etc/libvirt/libvirtd.conf':
     source  => [
       "puppet:///modules/site_virt/libvirt/configs/${::fqdn}/libvirtd.conf",
