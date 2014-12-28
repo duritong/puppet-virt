@@ -9,6 +9,7 @@
 #           guests marked as autostart will still be automatically started by
 #           libvirtd
 #ON_BOOT=start
+ON_BOOT=ignore
 
 # action taken on host shutdown
 # - suspend   all running guests are suspended using virsh managedsave
@@ -19,11 +20,13 @@
 #             ON_SHUTDOWN=shutdown, you must also set SHUTDOWN_TIMEOUT to a
 #             value suitable for your guests.
 #ON_SHUTDOWN=suspend
+ON_SHUTDOWN=shutdown
 
 # Number of seconds we're willing to wait for a guest to shut down. If parallel
 # shutdown is enabled, this timeout applies as a timeout for shutting down all
 # guests on a single URI defined in the variable URIS. If this is 0, then there
 # is no time out (use with caution, as guests might not respond to a shutdown
-# request).
-#SHUTDOWN_TIMEOUT=0
+# request). The default value is 300 seconds (5 minutes).
+#SHUTDOWN_TIMEOUT=300
+SHUTDOWN_TIMEOUT=30
 
