@@ -4,7 +4,7 @@ class virt::kvm::base {
     ensure => present,
   }
 
-  if $::operatingsystem == 'CentOS' and $::operatingsystemmajrelease > 5 {
+  if ($::operatingsystem == 'CentOS') and versioncmp($::operatingsystemmajrelease,'5') > 0 {
     Package['kvm']{
       name => 'qemu-kvm'
     }

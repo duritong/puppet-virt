@@ -5,7 +5,7 @@ class virt::libvirt::base {
     ensure => installed,
   }
 
-  if $::operatingsystem == 'CentOS' and $::operatingsystemmajrelease > 6 {
+  if ($::operatingsystem == 'CentOS') and versioncmp($::operatingsystemmajrelease,'6') > 0 {
     Package['ruby-libvirt']{
       name => 'rubygem-ruby-libvirt'
     }
