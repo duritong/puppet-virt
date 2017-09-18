@@ -29,9 +29,9 @@ class virt::libvirt::base {
       group   => 0,
       mode    => '0700';
     '/usr/local/sbin/generate_random_macaddress':
-      source  => 'puppet:///modules/virt/libvirt/random_mac_address.rb',
-      owner   => root,
-      group   => 0,
-      mode    => '0755';
+      source => 'puppet:///modules/virt/libvirt/random_mac_address.rb',
+      owner  => root,
+      group  => 0,
+      mode   => '0755';
   }
 }
