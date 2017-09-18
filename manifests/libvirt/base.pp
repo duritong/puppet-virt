@@ -14,23 +14,6 @@ class virt::libvirt::base {
     }
   }
 
-  file{'/etc/libvirt/libvirtd.conf':
-    source  => [
-      "puppet:///modules/site_virt/libvirt/configs/${::fqdn}/libvirtd.conf",
-      "puppet:///modules/site_virt/libvirt/configs/${::domain}/libvirtd.conf",
-      "puppet:///modules/site_virt/libvirt/configs/${::operatingsystem}/${::operatingsystemmajrelease}/libvirtd.conf",
-      "puppet:///modules/site_virt/libvirt/configs/${::operatingsystem}/libvirtd.conf",
-      'puppet:///modules/site_virt/libvirt/configs/libvirtd.conf',
-      "puppet:///modules/virt/libvirt/configs/${::operatingsystem}/${::operatingsystemmajrelease}/libvirtd.conf",
-      "puppet:///modules/virt/libvirt/configs/${::operatingsystem}/libvirtd.conf"
-    ],
-    require => Package['libvirt'],
-    notify  => Service['libvirtd'],
-    owner   => root,
-    group   => 0,
-    mode    => '0644';
-  }
-
   service{'libvirtd':
     ensure    => running,
     enable    => true,
