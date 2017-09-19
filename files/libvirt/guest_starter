@@ -1,12 +1,11 @@
 #!/usr/bin/env ruby
 
-require 'facter'
 class GuestStarter
   def self.factory
-    if Facter[:virtual].value == 'xen0'
-      XenGuestStarter.new
-    elsif (Facter[:virtual].value == 'physical') && File.exists?('/etc/libvirt/qemu')
+    if File.exists?('/etc/libvirt/qemu')
       KvmGuestStarter.new
+    elsif File.directory?('/etc/xen')
+      XenGuestStarter.new
     else
       raise "No such virtual type supported so far!"
     end 
