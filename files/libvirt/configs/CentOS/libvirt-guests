@@ -23,10 +23,13 @@ ON_BOOT=ignore
 #             which just needs a long time to shutdown. When setting
 #             ON_SHUTDOWN=shutdown, you must also set SHUTDOWN_TIMEOUT to a
 #             value suitable for your guests.
+#ON_SHUTDOWN=suspend
 ON_SHUTDOWN=shutdown
 
-# If set to non-zero, shutdown will suspend guests concurrently. Number of
-# guests on shutdown at any time will not exceed number set in this variable.
+# Number of guests will be shutdown concurrently, taking effect when
+# "ON_SHUTDOWN" is set to "shutdown". If Set to 0, guests will be shutdown one
+# after another. Number of guests on shutdown at any time will not exceed number
+# set in this variable.
 #PARALLEL_SHUTDOWN=0
 PARALLEL_SHUTDOWN=10
 
