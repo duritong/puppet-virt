@@ -1,27 +1,27 @@
 # basic stuff for a libvirt host
 class virt::libvirt::base {
   require rubygems::xmlsimple
-  package{ [ 'libvirt', 'python-virtinst', 'ruby-libvirt', 'virt-top' ]:
+  package { ['libvirt', 'python-virtinst', 'ruby-libvirt', 'virt-top']:
     ensure => installed,
   }
 
-  if ($::operatingsystem == 'CentOS') and versioncmp($::operatingsystemmajrelease,'6') > 0 {
-    Package['ruby-libvirt']{
+  if ($facts['os']['name'] == 'CentOS') and versioncmp($facts['os']['release']['major'],'6') > 0 {
+    Package['ruby-libvirt'] {
       name => 'rubygem-ruby-libvirt'
     }
-    Package['python-virtinst']{
+    Package['python-virtinst'] {
       name => 'virt-install'
     }
   }
 
-  service{'libvirtd':
+  service { 'libvirtd':
     ensure    => running,
     enable    => true,
     hasstatus => true,
     require   => Package['libvirt'],
   }
 
-  file{
+  file {
     '/usr/local/sbin/guest_starter':
       source  => 'puppet:///modules/virt/libvirt/guest_starter',
       require => Package['libvirt'],
