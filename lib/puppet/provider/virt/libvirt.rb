@@ -41,7 +41,7 @@ Puppet::Type.type(:virt).provide(:libvirt) do
 			arguments << "--noreboot"
 		end
 
-		if File.exists?(resource[:virt_path].split('=')[1])
+		if File.exist?(resource[:virt_path].split('=')[1])
 			debug "File already exists. Importing domain"
 			arguments << "--import"
 		else
@@ -103,7 +103,7 @@ Puppet::Type.type(:virt).provide(:libvirt) do
         # Libvirt XML <domain> specification: http://libvirt.org/formatdomain.html
 	def xmlinstall(xmlfile)
 
-		if !File.exists?(xmlfile)
+		if !File.exist?(xmlfile)
 			debug "Creating the XML file: %s " % xmlfile
 
 			case resource[:virt_type]
@@ -258,7 +258,7 @@ Puppet::Type.type(:virt).provide(:libvirt) do
 		extension = ".xml"
 		xml = path + resource[:name] + extension
 
-		if File.exists?(xml)
+		if File.exist?(xml)
 			arguments =  ["poweroff", xml]
 			line = ""
 			debug "Line: %s" % [line]
