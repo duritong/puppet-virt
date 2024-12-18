@@ -3,7 +3,7 @@ class virt::libvirt::base {
   require rubygems::xmlsimple
   package { ['libvirt', 'virt-install', 'virt-top']:
     ensure => installed,
-  } -> service { 'libvirtd':
+  } -> service { ['libvirtd','libvirt-guests']:
     ensure    => running,
     enable    => true,
     hasstatus => true,
